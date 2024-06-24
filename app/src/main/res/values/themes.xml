@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PhoneBookApp" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimaryLight</item>
+        <item name="colorSecondary">@color/colorSecondaryLight</item>
+        <item name="colorAccent">@color/colorAccentLight</item>
+        <item name="colorControlNormal">@color/colorControlNormalLight</item>
+    </style>
+
+    <style name="Theme.PhoneBookApp" parent="Base.Theme.PhoneBookApp" />
+</resources>
