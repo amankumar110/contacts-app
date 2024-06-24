@@ -25,6 +25,7 @@ public class AddContactActivity extends AppCompatActivity {
    private ActivityAddContactBinding binding;
    Contact contact;
    ContactViewModel viewModel;
+   private ValidationManager validationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +35,13 @@ public class AddContactActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(ContactViewModel.class);
-
+        validationManager = new ValidationManager(TextInputLayout::setError);
         contact = new Contact();
         binding.setContact(contact);
 
         binding.addContactButton.setOnClickListener(v -> {
 
-            Log.v("contact",contact.toString());
-            ValidationManager validationManager = new ValidationManager(TextInputLayout::setError);
+            validationManager.resetValidationFlags();
 
             validationManager.validateName(binding.contactNameTextLayout);
             validationManager.validateEmailAddress(binding.contactEmailTextLayout);

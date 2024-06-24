@@ -13,7 +13,10 @@ public class ValidationManager {
     public static final String ERROR_INVALID_EMAIL = "Enter a Valid Email!";
     public static final String ERROR_INVALID_PHONE_NUMBER = "Enter a Valid Phone Number!";
     public static final String ERROR_INVALID_HOME_NUMBER = "Enter a Valid Home Number!";
-    public static boolean isAllValid = true;
+    private boolean isNameValid = false;
+    private boolean isEmailValid = false;
+    private boolean isPhoneNumberValid = false;
+    private boolean isHomeNumberValid = false;
 
     private ErrorSetter errorSetter;
 
@@ -32,12 +35,12 @@ public class ValidationManager {
 
         if(name.isEmpty() || name==null) {
             errorSetter.setError(textInputLayout,ERROR_EMPTY_FIELD);
-            isAllValid = false;
+            isNameValid = false;
         } else if (!Pattern.matches("^[A-Za-z]+(?: [A-Za-z]+)?$",name)) {
             errorSetter.setError(textInputLayout,ERROR_INVALID_NAME);
-            isAllValid = false;
+            isNameValid = false;
         } else {
-            isAllValid = true;
+            isNameValid = true;
         }
     }
 
@@ -47,15 +50,15 @@ public class ValidationManager {
 
         if(phone.isEmpty() || phone==null) {
             errorSetter.setError(textInputLayout,ERROR_EMPTY_FIELD);
-            isAllValid = false;
+            isPhoneNumberValid = false;
         } else if (!Pattern.matches("^0\\d{10}$",phone)) {
             errorSetter.setError(textInputLayout,ERROR_INVALID_PHONE_NUMBER);
-            isAllValid = false;
+            isPhoneNumberValid = false;
         }else if (phone.length() < 11){
             errorSetter.setError(textInputLayout,ERROR_INVALID_PHONE_NUMBER);
-            isAllValid = false;
+            isPhoneNumberValid = false;
         } else {
-            isAllValid = true;
+            isPhoneNumberValid = true;
         }
     }
 
@@ -63,17 +66,17 @@ public class ValidationManager {
 
         String phone = textInputLayout.getEditText().getText().toString();
 
-        if(phone.isEmpty() || phone==null) {
+        if(phone.trim().isEmpty()) {
             errorSetter.setError(textInputLayout,ERROR_EMPTY_FIELD);
-            isAllValid = false;
+            isHomeNumberValid = false;
         } else if (!Pattern.matches("^0\\d{10}$",phone)) {
             errorSetter.setError(textInputLayout,ERROR_INVALID_HOME_NUMBER);
-            isAllValid = false;
+            isHomeNumberValid = false;
         } else if(phone.length() < 11) {
            errorSetter.setError(textInputLayout,ERROR_INVALID_HOME_NUMBER);
-           isAllValid = false;
+           isHomeNumberValid =  false;
         } else {
-            isAllValid = true;
+            isHomeNumberValid = true;
         }
     }
 
@@ -81,19 +84,27 @@ public class ValidationManager {
 
         String email = textInputLayout.getEditText().getText().toString();
 
-        if(email.isEmpty() || email==null) {
+        if(email.trim().isEmpty()) {
             errorSetter.setError(textInputLayout,ERROR_EMPTY_FIELD);
-            isAllValid = false;
+            isEmailValid = false;
         } else if (!Pattern.matches( "^[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]{2,}$",email)) {
             errorSetter.setError(textInputLayout,ERROR_INVALID_EMAIL);
-            isAllValid = false;
+            isEmailValid = false;
         } else {
-            isAllValid = true;
+            isEmailValid = true;
         }
     }
 
+
+    public void resetValidationFlags() {
+        isNameValid = false;
+        isEmailValid = false;
+        isPhoneNumberValid = false;
+        isHomeNumberValid = false;
+    }
+
     public boolean isAllValid() {
-        return isAllValid;
+        return isNameValid && isEmailValid && isPhoneNumberValid && isHomeNumberValid;
     }
 
 }
